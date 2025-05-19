@@ -1,12 +1,29 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import projects from "./views/projects/projects.js";
+import { getProjects } from './services/api';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  modules: {
-    projects,
+  state: {
+    projects: []
   },
+  mutations: {
+    setProjects(state, projects) {
+      state.projects = projects;
+    }
+  },
+  actions: {
+    async fetchProjects({ commit }) {
+      try {
+        const projects = await getProjects();
+        commit('setProjects', projects);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+  },
+  getters: {
+    projects: (state) => state.projects
+  }
 });
