@@ -9,7 +9,6 @@
   </div>
 </template>
 
-
 <script>
 import home from './home.js';
 export default home;

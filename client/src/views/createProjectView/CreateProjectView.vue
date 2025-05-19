@@ -16,7 +16,8 @@ export default {
   computed: {
     saveEntity() {
       return (data) => {
-        createProject(data)};
+        createProject(data);
+      };
     },
   },
 };

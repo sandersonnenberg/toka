@@ -1,10 +1,10 @@
 <template>
   <div v-if="loaded">
     <h1>{{ title }}</h1>
-    <CreateUpdateEntity 
-      :initialData="entityData" 
-      :submitLabel="submitLabel" 
-      @submit="handleSubmit" 
+    <CreateUpdateEntity
+      :initialData="entityData"
+      :submitLabel="submitLabel"
+      @submit="handleSubmit"
     />
   </div>
 </template>

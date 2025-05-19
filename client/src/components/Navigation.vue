@@ -3,12 +3,8 @@
     <router-link to="/" class="master-logo">Project & Task Managment App</router-link>
     <router-link to="/projects">Projects</router-link>
     <router-link to="/projects/new">Create a new Project</router-link>
-    <router-link to="/projects/<project-id-1>" class="child">
-      Sample Project 1
-    </router-link>
-    <router-link to="/projects/<project-id-2>" class="child">
-      Sample Project 2
-    </router-link>
+    <router-link to="/projects/<project-id-1>" class="child"> Sample Project 1 </router-link>
+    <router-link to="/projects/<project-id-2>" class="child"> Sample Project 2 </router-link>
   </nav>
 </template>
 <style lang="less">
