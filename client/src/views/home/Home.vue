@@ -1,11 +1,7 @@
 <template>
   <div>
     <h1>Projects</h1>
-    <ul>
-      <li v-for="project in projects" :key="project._id">
-        {{ project.name }}
-      </li>
-    </ul>
+    <GenericGrid :items="projects" actionLabel="Edit" :linkBuilder="projectLink" />
   </div>
 </template>
 

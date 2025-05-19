@@ -5,6 +5,7 @@ import {
   failedFetchingProjets,
   failedToCreateProject,
   failedToUpdateProject,
+  failedToGetProjectById,
 } from './constants';
 
 export const getProjects = async () => {
@@ -30,5 +31,11 @@ export const updateProjectById = async (id, projectData) => {
     body: JSON.stringify(projectData),
   });
   if (!response.ok) throw new Error(failedToUpdateProject(id));
+  return response.json();
+};
+
+export const getProjectById = async (id) => {
+  const response = await fetch(`${BASE_URL}/${id}`);
+  if (!response.ok) throw new Error(failedToGetProjectById(id));
   return response.json();
 };

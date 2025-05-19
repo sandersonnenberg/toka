@@ -8,3 +8,4 @@ export const API_METHOD = {
 export const failedToCreateProject = 'Failed to create project';
 export const failedFetchingProjets = 'Failed to fetch projects';
 export const failedToUpdateProject = (id) => `Failed to update project id: ${id}`;
+export const failedToGetProjectById = (id) => `Failed getting project id: ${id}`;
