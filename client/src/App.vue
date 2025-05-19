@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <div class="master-layout">
-      <aside>
-        <navigation />
-      </aside>
+      <navigation />
       <main>
         <router-view />
       </main>
@@ -29,9 +27,8 @@ export default {
   .master-layout {
     display: flex;
     gap: 15px;
-    > aside {
-      min-width: 260px;
-    }
+    flex-direction: column;
+
     > main {
       flex: 1;
     }

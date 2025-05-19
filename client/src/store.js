@@ -25,5 +25,6 @@ export default new Vuex.Store({
   },
   getters: {
     projects: (state) => state.projects,
+    getProjectById: (state) => (id) => state.projects.find((p) => p.id === id),
   },
 });
