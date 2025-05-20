@@ -64,7 +64,7 @@ export default {
   methods: {
     async loadTask() {
       try {
-        const fetchedTask = await getTaskById(this.projectId, this.taskId);
+        const fetchedTask = await getTaskById(this.taskId);
         this.task = {
           dueDate: fetchedTask.dueDate,
           state: fetchedTask.state || '',
@@ -76,7 +76,7 @@ export default {
     async handleSubmit() {
       try {
         if (this.isEditMode) {
-          await updateTaskById(this.projectId, this.taskId, this.task);
+          await updateTaskById(this.taskId, this.task);
         } else {
           await createTask(this.projectId, this.task);
         }
