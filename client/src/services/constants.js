@@ -19,3 +19,4 @@ export const failedToGetTaskId = (taskId, projectId) =>
   `Failed to fetch task ${taskId} for project ${projectId}`;
 export const failedToCreateTask = (projectId) => `Failed to create task for project ${projectId}`;
 export const failedToDeleteProject = (id) => `Failed to delete project with ID: ${id}`;
+export const failedToDeleteTask = (taskId) => `Failed to delete task ${taskId}`;

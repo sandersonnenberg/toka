@@ -12,6 +12,7 @@ import {
   failedToGetTaskId,
   failedToCreateTask,
   failedToDeleteProject,
+  failedToDeleteTask,
 } from './constants';
 
 export const getProjects = async () => {
@@ -67,7 +68,7 @@ export const getTasksByProjectId = async (projectId) => {
 };
 
 export const createTask = async (projectId, taskData) => {
-  const dataWithProjectId = { ...taskData, projectId }; // Include projectId in the body
+  const dataWithProjectId = { ...taskData, projectId };
   const response = await fetch('/api/tasks', {
     method: 'POST',
     headers,
@@ -77,18 +78,27 @@ export const createTask = async (projectId, taskData) => {
   return response.json();
 };
 
-export const updateTaskById = async (projectId, taskId, taskData) => {
-  const response = await fetch(`${BASE_TASKS_URL}/${projectId}/tasks/${taskId}`, {
+export const updateTaskById = async (taskId, taskData) => {
+  const response = await fetch(`${BASE_TASKS_URL}/${taskId}`, {
     method: API_METHOD.PUT,
     headers,
     body: JSON.stringify(taskData),
   });
-  if (!response.ok) throw new Error(failedToUpdateTaskId(taskId, projectId));
+  if (!response.ok) throw new Error(failedToUpdateTaskId(taskId));
   return response.json();
 };
 
-export const getTaskById = async (projectId, taskId) => {
-  const response = await fetch(`${BASE_TASKS_URL}/${projectId}/tasks/${taskId}`);
-  if (!response.ok) throw new Error(failedToGetTaskId(taskId, projectId));
+export const getTaskById = async (taskId) => {
+  const response = await fetch(`${BASE_TASKS_URL}/${taskId}`);
+  if (!response.ok) throw new Error(failedToGetTaskId(taskId));
+  return response.json();
+};
+
+export const deleteTaskById = async (taskId) => {
+  const response = await fetch(`${BASE_TASKS_URL}/${taskId}`, {
+    method: API_METHOD.DELETE,
+    headers,
+  });
+  if (!response.ok) throw new Error(failedToDeleteTask(taskId));
   return response.json();
 };

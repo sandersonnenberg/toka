@@ -4,7 +4,12 @@
     <router-link :to="{ name: 'TaskCreate' }">
       <button>Add Task</button>
     </router-link>
-    <TasksGrid :items="tasks" actionLabel="Edit" :linkBuilder="tasksLink" />
+    <TasksGrid
+      :items="tasks"
+      actionLabel="Edit"
+      :linkBuilder="tasksLink"
+      @task-deleted="removeTask"
+    />
   </div>
 </template>
 
@@ -39,8 +44,14 @@ export default {
         console.error(error.message);
       }
     },
-    tasksLink() {
-      return `/projects`;
+    removeTask(deletedId) {
+      this.tasks = [...this.tasks.filter((t) => t._id !== deletedId)];
+    },
+    tasksLink(task) {
+      return {
+        name: 'TaskEdit',
+        params: { id: this.projectId, taskId: task._id },
+      };
     },
     // goToCreateTask() {
     //   this.$router.push({ name: 'CreateTask', params: { id: this.projectId } });

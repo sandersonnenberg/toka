@@ -29,7 +29,7 @@
 <script>
 import editIcon from '@/assets/edit.svg';
 import deleteIcon from '@/assets/delete.svg';
-import { deleteProjectById } from '@/services/api';
+import { deleteTaskById } from '@/services/api';
 
 export default {
   props: {
@@ -56,15 +56,15 @@ export default {
     async handleDeleteClick(event) {
       event.preventDefault();
       event.stopPropagation();
-      if (confirm('Are you sure you want to delete this project?')) {
+      if (confirm('Are you sure you want to delete this task?')) {
         try {
           // await this.$store.dispatch('deleteProject', this.item._id);
 
-          await deleteProjectById(this.item._id);
-          this.$emit('project-deleted', this.item._id);
+          await deleteTaskById(this.item._id);
+          this.$emit('task-deleted', this.item._id);
         } catch (error) {
           console.error(error);
-          alert('Failed to delete project.');
+          alert('Failed to delete task.');
         }
       }
     },

@@ -8,7 +8,7 @@
         :item="item"
         :editLink="generateLink(item)"
         :type="detectType(item)"
-        @project-deleted="removeProject"
+        @task-deleted="removeTask"
       />
     </div>
     <div class="task-column">
@@ -19,7 +19,7 @@
         :item="item"
         :editLink="generateLink(item)"
         :type="detectType(item)"
-        @project-deleted="removeProject"
+        @task-deleted="removeTask"
       />
     </div>
     <div class="task-column">
@@ -30,7 +30,7 @@
         :item="item"
         :editLink="generateLink(item)"
         :type="detectType(item)"
-        @project-deleted="removeProject"
+        @task-deleted="removeTask"
       />
     </div>
   </div>
@@ -65,8 +65,8 @@ export default {
     detectType(item) {
       return item.projectId ? 'task' : 'project';
     },
-    removeProject(deletedId) {
-      this.projects = this.projects.filter((p) => p._id !== deletedId);
+    removeTask(deletedId) {
+      this.$emit('task-deleted', deletedId);
     },
   },
 };
