@@ -28,17 +28,20 @@
 import TasksGrid from '@/components/TasksGrid/TasksGrid.vue';
 import EmptyState from '@/components/EmptyState/EmptyState.vue';
 import { getTasksByProjectId } from '@/services/api';
+import { mapGetters } from 'vuex';
 
 export default {
   components: { TasksGrid, EmptyState },
   data() {
     return {
-      tasks: [],
       projectId: this.$route.params.id,
     };
   },
-  created() {
-    this.fetchTasks();
+  computed: {
+    ...mapGetters(['getTasksByProjectId']),
+    tasks() {
+      return this.getTasksByProjectId(this.projectId);
+    },
   },
   methods: {
     async fetchTasks() {
@@ -49,7 +52,7 @@ export default {
       }
     },
     removeTask(deletedId) {
-      this.tasks = [...this.tasks.filter((t) => t._id !== deletedId)];
+      this.$store.dispatch('removeTask', deletedId);
     },
     tasksLink(task) {
       return {

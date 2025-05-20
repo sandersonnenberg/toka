@@ -17,8 +17,11 @@ class Server {
     this.wss = wss;
   }
   broadcast(msg) {
+    console.log("[WebSocket] Broadcasting:", msg);
     this.wss.clients.forEach((client) => {
-      client.send(JSON.stringify(msg));
+      if (client.readyState === 1) {
+        client.send(JSON.stringify(msg));
+      }
     });
   }
   start() {
