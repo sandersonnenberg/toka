@@ -1,25 +1,24 @@
 <template>
-  <div>
+  <div class="task-form-container">
     <h2>{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h2>
-    <form @submit.prevent="handleSubmit">
-      <label>
-        Due Date:
-        <input type="date" v-model="formattedDueDate" required />
-      </label>
 
-      <div v-if="isEditMode">
-        <label>
-          State:
-          <select v-model="task.state" required>
-            <option value="" disabled>Select state</option>
-            <option value="CREATED">Created</option>
-            <option value="IN_PROGRESS">In Progress</option>
-            <option value="COMPLETED">Completed</option>
-          </select>
-        </label>
+    <form class="form-card" @submit.prevent="handleSubmit">
+      <div class="form-group">
+        <label for="dueDate">Due Date</label>
+        <input id="dueDate" type="date" v-model="formattedDueDate" required />
       </div>
 
-      <button type="submit" :disabled="!isFormValid">
+      <div v-if="isEditMode" class="form-group">
+        <label for="state">State</label>
+        <select id="state" v-model="task.state" required>
+          <option value="" disabled>Select state</option>
+          <option value="CREATED">Created</option>
+          <option value="IN_PROGRESS">In Progress</option>
+          <option value="COMPLETED">Completed</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn-primary" :disabled="!isFormValid">
         {{ isEditMode ? 'Update' : 'Create' }}
       </button>
     </form>
@@ -88,3 +87,73 @@ export default {
   },
 };
 </script>
+
+<style scoped lang="scss">
+.task-form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+}
+
+.form-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+  }
+}
+
+.btn-primary {
+  align-self: flex-end;
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken(#4a90e2, 10%);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+</style>

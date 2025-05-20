@@ -1,30 +1,27 @@
 <template>
-  <nav class="master-navigation">
-    <router-link to="/" class="master-logo">Project & Task Managment App</router-link>
-    <!-- <router-link to="/projects">Projects</router-link>
-    <router-link to="/projects/new">Create a new Project</router-link>
-    <router-link to="/projects/<project-id-1>" class="child"> Sample Project 1 </router-link>
-    <router-link to="/projects/<project-id-2>" class="child"> Sample Project 2 </router-link> -->
+  <nav class="header-container">
+    <router-link to="/" class="home-link">Home</router-link>
   </nav>
 </template>
-<!-- <style lang="less">
-nav.master-navigation {
-  padding: 20px;
-  .master-logo {
-    font-size: 24px;
-    min-height: 56px;
-    display: flex;
-    align-items: center;
-    margin: 0 0 20px 0;
-  }
-  a {
+<style lang="scss" scoped>
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  // border-bottom: 1px solid #eee;
+
+  .home-link {
+    font-size: 1.2rem;
     font-weight: bold;
-    display: flex;
-    color: inherit;
-    &.child {
-      font-weight: normal;
-      font-size: 14px;
+    color: #4a90e2;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: darken(#4a90e2, 10%);
     }
   }
 }
-</style> -->
+</style>

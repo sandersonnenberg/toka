@@ -1,25 +1,37 @@
 <template>
   <div>
-    <h2>Tasks for Project: {{ projectName }}</h2>
-    <router-link :to="{ name: 'TaskCreate' }">
-      <button>Add Task</button>
-    </router-link>
-    <TasksGrid
-      :items="tasks"
-      actionLabel="Edit"
-      :linkBuilder="tasksLink"
-      @task-deleted="removeTask"
+    <div class="main-header">
+      <h2>Tasks for Project: {{ projectName }}</h2>
+      <router-link :to="{ name: 'TaskCreate' }">
+        <button class="add-task">Add Task</button>
+      </router-link>
+    </div>
+    <div v-if="tasks.length > 0">
+      <TasksGrid
+        :items="tasks"
+        actionLabel="Edit"
+        :linkBuilder="tasksLink"
+        @task-deleted="removeTask"
+      />
+    </div>
+
+    <EmptyState
+      v-else
+      message="There are no tasks for this project. Please add one."
+      button-text="Add Task"
+      @add="goToCreateTask"
     />
   </div>
 </template>
 
 <script>
 import TasksGrid from '@/components/TasksGrid/TasksGrid.vue';
+import EmptyState from '@/components/EmptyState/EmptyState.vue';
 import { getTasksByProjectId } from '@/services/api';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { TasksGrid },
+  components: { TasksGrid, EmptyState },
   data() {
     return {
       tasks: [],
@@ -53,12 +65,18 @@ export default {
         params: { id: this.projectId, taskId: task._id },
       };
     },
-    // goToCreateTask() {
-    //   this.$router.push({ name: 'CreateTask', params: { id: this.projectId } });
-    // },
-    // editTask(taskId) {
-    //   this.$router.push({ name: 'EditTask', params: { id: this.projectId, taskId } });
-    // },
+    goToCreateTask() {
+      this.$router.push({ name: 'TaskCreate' });
+    },
   },
 };
 </script>
+<style lang="scss">
+.main-header {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>

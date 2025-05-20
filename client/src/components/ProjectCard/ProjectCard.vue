@@ -1,15 +1,15 @@
 <template>
-  <div class="card">
-    <div @click="goToProject">
+  <div class="card" @click="goToProject">
+    <div>
       <h3 :title="item.name" class="card-title">{{ item.name }}</h3>
       <p class="card-date" v-if="item.createdAt">Created: {{ formatDate(item.createdAt) }}</p>
       <p v-if="item.description">{{ item.description }}</p>
     </div>
     <div class="item-actions">
       <router-link :to="editLink">
-        <img :src="editIcon" alt="Edit" />
+        <img title="Edit" :src="editIcon" alt="Edit" />
       </router-link>
-      <img :src="deleteIcon" alt="Delete" @click.stop.prevent="handleDeleteClick" />
+      <img title="Delete" :src="deleteIcon" alt="Delete" @click.stop.prevent="handleDeleteClick" />
     </div>
   </div>
 </template>
@@ -17,7 +17,6 @@
 <script>
 import editIcon from '@/assets/edit.svg';
 import deleteIcon from '@/assets/delete.svg';
-// import { deleteProjectById } from '@/services/api';
 
 export default {
   props: {

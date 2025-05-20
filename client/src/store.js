@@ -13,7 +13,6 @@ export default new Vuex.Store({
       state.projects = projects;
     },
     removeProject(state, projectId) {
-      //check
       state.projects = state.projects.filter((p) => p._id !== projectId);
     },
   },
