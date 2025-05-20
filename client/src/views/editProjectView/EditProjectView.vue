@@ -4,7 +4,7 @@
     submitLabel="Update"
     :fetchEntity="fetchEntity"
     :saveEntity="saveEntity"
-    redirectPath="/projects"
+    redirectPath="/"
   />
 </template>
 

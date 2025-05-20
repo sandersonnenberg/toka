@@ -1,21 +1,19 @@
 <template>
-  <router-link v-if="type === 'project'" :to="projectViewLink" class="card-link-wrapper">
-    <div class="card" @click.stop>
-      <div>
-        <h3 :title="item.name" class="card-title">{{ item.name }}</h3>
-        <p class="card-date" v-if="item.createdAt">Created: {{ formatDate(item.createdAt) }}</p>
-        <p v-if="item.description">{{ item.description }}</p>
-        <div class="item-actions">
-          <router-link :to="editLink">
-            <img :src="editIcon" alt="Edit" />
-          </router-link>
-          <router-link :to="editLink">
-            <img :src="deleteIcon" alt="Delete" @click.stop.prevent="handleDeleteClick" />
-          </router-link>
-        </div>
+  <div class="card">
+    <div>
+      <h3 :title="item.name" class="card-title">{{ item.name }}</h3>
+      <p class="card-date" v-if="item.createdAt">Created: {{ formatDate(item.createdAt) }}</p>
+      <p class="card-date due-date" v-if="item.dueDate">Due Date: {{ formatDate(item.dueDate) }}</p>
+      <div class="item-actions">
+        <router-link :to="editLink">
+          <img :src="editIcon" alt="Edit" />
+        </router-link>
+        <router-link :to="editLink">
+          <img :src="deleteIcon" alt="Delete" @click.stop.prevent="handleDeleteClick" />
+        </router-link>
       </div>
     </div>
-  </router-link>
+  </div>
   <!-- <div v-else class="card">
     <div>
       <h3 :title="item.name" class="card-title">{{ item.name }}</h3>
@@ -98,6 +96,9 @@ export default {
   color: rgb(169, 181, 181);
   font-size: x-small;
   margin: 0;
+}
+.due-date {
+  color: red;
 }
 .item-actions {
   position: absolute;

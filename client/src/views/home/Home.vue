@@ -4,15 +4,20 @@
       <h1>Projects</h1>
       <router-link to="/projects/new"><button>Create a new Project</button></router-link>
     </div>
-    <GenericGrid :items="projects" actionLabel="Edit" :linkBuilder="projectLink" />
+    <ProjectsGrid
+      :items="projects"
+      actionLabel="Edit"
+      :linkBuilder="projectLink"
+      @project-deleted="handleProjectDeleted"
+    />
   </div>
 </template>
 
 <script>
-import GenericGrid from '@/components/GenericGrid/GenericGrid.vue';
+import ProjectsGrid from '@/components/ProjectsGrid/ProjectsGrid.vue';
 
 export default {
-  components: { GenericGrid },
+  components: { ProjectsGrid },
 
   computed: {
     projects() {
@@ -22,6 +27,9 @@ export default {
   methods: {
     projectLink(project) {
       return `/projects/${project._id}/edit`;
+    },
+    handleProjectDeleted(deletedId) {
+      this.$store.dispatch('deleteProject', deletedId);
     },
   },
   created() {

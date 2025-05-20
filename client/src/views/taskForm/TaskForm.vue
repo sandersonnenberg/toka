@@ -3,18 +3,25 @@
     <h2>{{ isEditMode ? 'Edit Task' : 'Create Task' }}</h2>
     <form @submit.prevent="handleSubmit">
       <label>
-        Title:
-        <input v-model="task.title" required />
-      </label>
-      <label>
-        Description:
-        <textarea v-model="task.description"></textarea>
-      </label>
-      <label>
         Due Date:
         <input type="date" v-model="formattedDueDate" required />
       </label>
-      <button type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+
+      <div v-if="isEditMode">
+        <label>
+          State:
+          <select v-model="task.state" required>
+            <option value="" disabled>Select state</option>
+            <option value="CREATED">Created</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="COMPLETED">Completed</option>
+          </select>
+        </label>
+      </div>
+
+      <button type="submit" :disabled="!isFormValid">
+        {{ isEditMode ? 'Update' : 'Create' }}
+      </button>
     </form>
   </div>
 </template>
@@ -27,8 +34,6 @@ export default {
   data() {
     return {
       task: {
-        title: '',
-        description: '',
         dueDate: '',
       },
       isEditMode: false,
@@ -38,12 +43,16 @@ export default {
     formattedDueDate: {
       get() {
         if (!this.task.dueDate) return '';
-        const date = new Date(this.task.dueDate);
-        return date.toISOString().split('T')[0];
+        return new Date(this.task.dueDate).toISOString().split('T')[0];
       },
       set(value) {
         this.task.dueDate = new Date(value).toISOString();
       },
+    },
+    isFormValid() {
+      if (!this.task.dueDate) return false;
+      if (this.isEditMode && !this.task.state) return false;
+      return true;
     },
   },
   created() {
@@ -56,9 +65,12 @@ export default {
     async loadTask() {
       try {
         const fetchedTask = await getTaskById(this.projectId, this.taskId);
-        this.task = fetchedTask;
+        this.task = {
+          dueDate: fetchedTask.dueDate,
+          state: fetchedTask.state || '',
+        };
       } catch (error) {
-        console.error(error.message);
+        console.error('Failed to load task:', error.message);
       }
     },
     async handleSubmit() {
@@ -70,7 +82,7 @@ export default {
         }
         this.$router.push(`/projects/${this.projectId}/tasks`);
       } catch (error) {
-        console.error(error.message);
+        console.error('Task submission failed:', error.message);
       }
     },
   },

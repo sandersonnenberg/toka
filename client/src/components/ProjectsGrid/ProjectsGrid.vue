@@ -1,6 +1,6 @@
 <template>
   <div class="grid">
-    <GenericCard
+    <ProjectCard
       v-for="item in items"
       :key="item._id"
       :item="item"
@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import GenericCard from '../GenricCard/GenericCard.vue';
+import ProjectCard from '../ProjectCard/ProjectCard.vue';
 
 export default {
-  components: { GenericCard },
+  components: { ProjectCard },
   props: {
     items: { type: Array, required: true },
     actionLabel: { type: String, default: 'View' },
@@ -29,7 +29,7 @@ export default {
       return item.projectId ? 'task' : 'project';
     },
     removeProject(deletedId) {
-      this.projects = this.projects.filter((p) => p._id !== deletedId);
+      this.$emit('project-deleted', deletedId);
     },
   },
 };

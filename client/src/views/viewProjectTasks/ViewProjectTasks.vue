@@ -4,20 +4,17 @@
     <router-link :to="{ name: 'TaskCreate' }">
       <button>Add Task</button>
     </router-link>
-    <ul>
-      <li v-for="task in tasks" :key="task.id">
-        {{ task.name }}
-        <button @click="editTask(task.id)">Edit</button>
-      </li>
-    </ul>
+    <TasksGrid :items="tasks" actionLabel="Edit" :linkBuilder="tasksLink" />
   </div>
 </template>
 
 <script>
+import TasksGrid from '@/components/TasksGrid/TasksGrid.vue';
 import { getTasksByProjectId } from '@/services/api';
 import { mapGetters } from 'vuex';
 
 export default {
+  components: { TasksGrid },
   data() {
     return {
       tasks: [],
@@ -41,6 +38,9 @@ export default {
       } catch (error) {
         console.error(error.message);
       }
+    },
+    tasksLink() {
+      return `/projects`;
     },
     // goToCreateTask() {
     //   this.$router.push({ name: 'CreateTask', params: { id: this.projectId } });
