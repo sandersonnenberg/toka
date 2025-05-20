@@ -14,16 +14,6 @@
       </div>
     </div>
   </div>
-  <!-- <div v-else class="card">
-    <div>
-      <h3 :title="item.name" class="card-title">{{ item.name }}</h3>
-      <p class="card-date" v-if="item.createdAt">Created: {{ formatDate(item.createdAt) }}</p>
-      <p v-if="item.description">{{ item.description }}</p>
-      <router-link class="edit-item" :to="editLink">
-        <img :src="editIcon" alt="Edit" />
-      </router-link>
-    </div>
-  </div> -->
 </template>
 
 <script>
@@ -58,8 +48,6 @@ export default {
       event.stopPropagation();
       if (confirm('Are you sure you want to delete this task?')) {
         try {
-          // await this.$store.dispatch('deleteProject', this.item._id);
-
           await deleteTaskById(this.item._id);
           this.$emit('task-deleted', this.item._id);
         } catch (error) {

@@ -9,8 +9,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
-  // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  // border-bottom: 1px solid #eee;
 
   .home-link {
     font-size: 1.2rem;

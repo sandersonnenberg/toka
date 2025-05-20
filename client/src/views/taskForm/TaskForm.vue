@@ -90,22 +90,20 @@ export default {
 
 <style scoped lang="scss">
 .task-form-container {
-  max-width: 500px;
-  margin: 2rem auto;
-  padding: 1rem;
-
   h2 {
-    text-align: center;
+    padding: 0;
+    margin: 0 2rem;
     color: #333;
     margin-bottom: 2rem;
   }
 }
 
 .form-card {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
   background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -122,7 +120,7 @@ export default {
 
   input,
   select {
-    padding: 0.75rem;
+    padding: 0.75rem 0;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;

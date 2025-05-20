@@ -1,6 +1,6 @@
 <template>
-  <div v-if="loaded">
-    <h1>{{ title }}</h1>
+  <div class="edit-container" v-if="loaded">
+    <h2>{{ title }}</h2>
     <CreateUpdateEntity
       :initialData="entityData"
       :submitLabel="submitLabel"
@@ -41,3 +41,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.edit-container {
+  padding: 0 1.2rem;
+}
+</style>

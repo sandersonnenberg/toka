@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-header">
-      <h2>Tasks for Project: {{ projectName }}</h2>
+      <h2>Tasks for Project: {{ projectId }}</h2>
       <router-link :to="{ name: 'TaskCreate' }">
         <button class="add-task">Add Task</button>
       </router-link>
@@ -28,7 +28,6 @@
 import TasksGrid from '@/components/TasksGrid/TasksGrid.vue';
 import EmptyState from '@/components/EmptyState/EmptyState.vue';
 import { getTasksByProjectId } from '@/services/api';
-import { mapGetters } from 'vuex';
 
 export default {
   components: { TasksGrid, EmptyState },
@@ -40,13 +39,6 @@ export default {
   },
   created() {
     this.fetchTasks();
-  },
-  computed: {
-    ...mapGetters(['getProjectById']),
-    projectName() {
-      const project = this.getProjectById(this.projectId);
-      return project ? project.name : 'Unknown Project';
-    },
   },
   methods: {
     async fetchTasks() {
