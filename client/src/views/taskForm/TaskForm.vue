@@ -68,7 +68,7 @@ export default {
         } else {
           await createTask(this.projectId, this.task);
         }
-        this.$router.push('/tasks');
+        this.$router.push(`/projects/${this.projectId}/tasks`);
       } catch (error) {
         console.error(error.message);
       }

@@ -4,6 +4,7 @@ export const headers = { 'Content-Type': 'application/json' };
 export const API_METHOD = {
   PUT: 'PUT',
   POST: 'POST',
+  DELETE: 'DELETE',
 };
 
 export const failedToCreateProject = 'Failed to create project';
@@ -17,3 +18,4 @@ export const failedToUpdateTaskId = (taskId, projectId) =>
 export const failedToGetTaskId = (taskId, projectId) =>
   `Failed to fetch task ${taskId} for project ${projectId}`;
 export const failedToCreateTask = (projectId) => `Failed to create task for project ${projectId}`;
+export const failedToDeleteProject = (id) => `Failed to delete project with ID: ${id}`;

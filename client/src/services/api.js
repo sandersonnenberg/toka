@@ -11,6 +11,7 @@ import {
   failedToUpdateTaskId,
   failedToGetTaskId,
   failedToCreateTask,
+  failedToDeleteProject,
 } from './constants';
 
 export const getProjects = async () => {
@@ -42,6 +43,15 @@ export const updateProjectById = async (id, projectData) => {
 export const getProjectById = async (id) => {
   const response = await fetch(`${BASE_PROJECT_URL}/${id}`);
   if (!response.ok) throw new Error(failedToGetProjectById(id));
+  return response.json();
+};
+
+export const deleteProjectById = async (id) => {
+  const response = await fetch(`${BASE_PROJECT_URL}/${id}`, {
+    method: API_METHOD.DELETE,
+    headers,
+  });
+  if (!response.ok) throw new Error(failedToDeleteProject(id));
   return response.json();
 };
 

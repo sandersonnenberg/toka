@@ -3,7 +3,7 @@
     title="Create Project"
     submitLabel="Create"
     :saveEntity="saveEntity"
-    redirectPath="/projects"
+    redirectPath="/"
   />
 </template>
 

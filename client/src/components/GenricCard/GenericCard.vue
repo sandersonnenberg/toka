@@ -5,9 +5,14 @@
         <h3 :title="item.name" class="card-title">{{ item.name }}</h3>
         <p class="card-date" v-if="item.createdAt">Created: {{ formatDate(item.createdAt) }}</p>
         <p v-if="item.description">{{ item.description }}</p>
-        <router-link class="edit-item" :to="editLink">
-          <img :src="editIcon" alt="Edit" />
-        </router-link>
+        <div class="item-actions">
+          <router-link :to="editLink">
+            <img :src="editIcon" alt="Edit" />
+          </router-link>
+          <router-link :to="editLink">
+            <img :src="deleteIcon" alt="Delete" @click.stop.prevent="handleDeleteClick" />
+          </router-link>
+        </div>
       </div>
     </div>
   </router-link>
@@ -25,16 +30,19 @@
 
 <script>
 import editIcon from '@/assets/edit.svg';
+import deleteIcon from '@/assets/delete.svg';
+import { deleteProjectById } from '@/services/api';
 
 export default {
   props: {
     item: { type: Object, required: true },
     editLink: { type: [String, Object], required: true },
-    type: { type: String, default: 'task' }, // 'project' or 'task'
+    type: { type: String, default: 'task' },
   },
   data() {
     return {
       editIcon,
+      deleteIcon,
     };
   },
   computed: {
@@ -46,6 +54,21 @@ export default {
     formatDate(isoDate) {
       const date = new Date(isoDate);
       return date.toLocaleString();
+    },
+    async handleDeleteClick(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (confirm('Are you sure you want to delete this project?')) {
+        try {
+          // await this.$store.dispatch('deleteProject', this.item._id);
+
+          await deleteProjectById(this.item._id);
+          this.$emit('project-deleted', this.item._id);
+        } catch (error) {
+          console.error(error);
+          alert('Failed to delete project.');
+        }
+      }
     },
   },
 };
@@ -76,7 +99,7 @@ export default {
   font-size: x-small;
   margin: 0;
 }
-.edit-item {
+.item-actions {
   position: absolute;
   top: 8px;
   right: 8px;

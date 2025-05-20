@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getProjects } from './services/api';
+import { getProjects, deleteProjectById } from './services/api';
 
 Vue.use(Vuex);
 
@@ -12,6 +12,9 @@ export default new Vuex.Store({
     setProjects(state, projects) {
       state.projects = projects;
     },
+    removeProject(state, projectId) {
+      state.projects = state.projects.filter((p) => p._id !== projectId);
+    },
   },
   actions: {
     async fetchProjects({ commit }) {
@@ -20,6 +23,15 @@ export default new Vuex.Store({
         commit('setProjects', projects);
       } catch (error) {
         console.error(error.message);
+      }
+    },
+    async deleteProject({ commit }, projectId) {
+      try {
+        await deleteProjectById(projectId);
+        commit('removeProject', projectId);
+      } catch (error) {
+        console.error(error.message);
+        throw error;
       }
     },
   },

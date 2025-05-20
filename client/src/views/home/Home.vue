@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>Projects</h1>
+    <div class="main-header">
+      <h1>Projects</h1>
+      <router-link to="/projects/new"><button>Create a new Project</button></router-link>
+    </div>
     <GenericGrid :items="projects" actionLabel="Edit" :linkBuilder="projectLink" />
   </div>
 </template>
