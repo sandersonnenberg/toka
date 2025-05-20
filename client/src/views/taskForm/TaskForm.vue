@@ -12,9 +12,9 @@
         <label for="state">State</label>
         <select id="state" v-model="task.state" required>
           <option value="" disabled>Select state</option>
-          <option value="CREATED">Created</option>
-          <option value="IN_PROGRESS">In Progress</option>
-          <option value="COMPLETED">Completed</option>
+          <option v-for="(value, key) in taskStates" :key="key" :value="value">
+            {{ formatLabel(key) }}
+          </option>
         </select>
       </div>
 
@@ -27,6 +27,7 @@
 
 <script>
 import { updateTaskById, getTaskById, createTask } from '@/services/api';
+import { taskStates } from '@/constants';
 
 export default {
   props: ['taskId', 'projectId'],
@@ -36,6 +37,7 @@ export default {
         dueDate: '',
       },
       isEditMode: false,
+      taskStates,
     };
   },
   computed: {
@@ -61,6 +63,12 @@ export default {
     }
   },
   methods: {
+    formatLabel(key) {
+      return key
+        .replace('_', ' ')
+        .toLowerCase()
+        .replace(/(^\w|\s\w)/g, (c) => c.toUpperCase());
+    },
     async loadTask() {
       try {
         const fetchedTask = await getTaskById(this.taskId);
